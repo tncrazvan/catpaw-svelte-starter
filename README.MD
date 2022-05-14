@@ -7,33 +7,30 @@ In order to debug with vscode you will need to configure both vscode and xdebug 
 Make new a `./.vscode/launch.json` file in your project and add the following configuration if you don't have it already:
 ```json
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "Listen (paw)",
-            "type": "php",
-            "request": "launch",
-            "port": 9003
-        },
-        {
-            "name": "Launch (paw)",
-            "type": "php",
-            "request": "launch",
-            "program": "${workspaceFolder}/vendor/catpaw/core/scripts/start.php",
-            "cwd": "${workspaceFolder}",
-            "args": [
-                "${file}"
-            ],
-            "port": 0,
-            "runtimeArgs": [
-                "-dxdebug.start_with_request=yes"
-            ],
-            "env": {
-                "XDEBUG_MODE": "debug,develop",
-                "XDEBUG_CONFIG": "client_port=${port}"
-            }
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Listen (paw)",
+      "type": "php",
+      "request": "launch",
+      "port": 9003,
+      "runtimeArgs": ["-dxdebug.start_with_request=yes", "-dxdebug.mode=debug"]
+    },
+    {
+      "name": "Launch (paw)",
+      "type": "php",
+      "request": "launch",
+      "program": "${workspaceFolder}/vendor/catpaw/core/scripts/start.php",
+      "cwd": "${workspaceFolder}",
+      "args": ["${file}"],
+      "port": 0,
+      "runtimeArgs": ["-dxdebug.start_with_request=yes", "-dxdebug.mode=debug"],
+      "env": {
+        "XDEBUG_MODE": "debug,develop",
+        "XDEBUG_CONFIG": "client_port=${port}"
+      }
+    }
+  ]
 }
 ```
 
