@@ -41,7 +41,6 @@ The first configuration will passively listen for xdebug, while the second one w
 In you `php.ini` file add:
 ```ini
 [xdebug]
-xdebug.mode=debug
 xdebug.client_host=127.0.0.1
 xdebug.client_port=9003
 ```
