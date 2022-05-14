@@ -1,0 +1,16 @@
+/vendor/
+/tmp/
+/.settings/
+/nbproject/
+*.log
+*.exe
+*.pem
+/composer.phar
+/.history/
+/.idea/
+/.sessions/
+.DS_Store
+/node_modules/
+/.svelte-kit/
+/package/
+/dist/

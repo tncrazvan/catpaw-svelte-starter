@@ -1,0 +1,37 @@
+{
+  "extends": "@tsconfig/svelte/tsconfig.json",
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "esnext",
+    "resolveJsonModule": true,
+    "baseUrl": ".",
+    /**
+     * Typecheck JS in `.svelte` and `.js` files by default.
+     * Disable checkJs if you'd like to use dynamic types in JS.
+     * Note that setting allowJs false does not prevent the use
+     * of JS in `.svelte` files.
+     */
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true,
+    "paths": {
+      "@catpaw": [".internal/catpaw.ts"],
+
+      "@components/*": ["src/svelte/lib/components/*"],
+      "@pages/*": ["src/svelte/lib/pages/*"],
+      "@types/*": ["src/svelte/lib/types/*"],
+      "@scripts/*": ["src/svelte/lib/scripts/*"],
+      "@assets/*": ["src/svelte/assets/*"],
+
+      "@stores": ["src/svelte/lib/@stores.ts"],
+      "@constants": ["src/svelte/lib/@constants.ts"]
+    }
+  },
+  "include": [
+    "src/svelte/**/*.d.ts",
+    "src/svelte/**/*.ts",
+    "src/svelte/**/*.js",
+    "src/svelte/**/*.svelte",
+    ".internal/**/*.svelte"
+  ]
+}
