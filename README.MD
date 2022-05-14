@@ -4,7 +4,7 @@ In order to debug with vscode you will need to configure both vscode and xdebug 
 
 ### VSCode configuration
 
-Make new a `./.vscode/launch.json` file in your project and add your configuration:
+Make new a `./.vscode/launch.json` file in your project and add the following configuration if you don't have it already:
 ```json
 {
     "version": "0.2.0",
