@@ -2,8 +2,7 @@
 
 namespace app\api\pages;
 
-function home()
-{
+function home() {
     return [
         "name" => "world"
     ];
