@@ -1,5 +1,6 @@
 /vendor/
 /tmp/
+/composer.lock
 /.settings/
 /nbproject/
 *.log
@@ -9,6 +10,7 @@
 /.history/
 /.idea/
 /.sessions/
+.php-cs-fixer.cache
 .DS_Store
 /node_modules/
 /.svelte-kit/

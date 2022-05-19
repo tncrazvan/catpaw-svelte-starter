@@ -15,7 +15,11 @@
     "catpaw"
   ],
   "scripts": {
-    "load": "@composer dump-autoload -o"
+    "load": "@composer dump-autoload -o",
+    "fix": [
+      "@php ./vendor/bin/php-cs-fixer fix src",
+      "@php ./vendor/bin/php-cs-fixer fix tests"
+    ]
   },
   "authors": [
     {
@@ -38,6 +42,13 @@
     "amphp/amp": "^2.6",
     "amphp/file": "^2.0",
     "catpaw/web": "^1.1"
+  },
+  "autoload-dev": {
+    "Tests\\": "tests/"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.5",
+    "friendsofphp/php-cs-fixer": "^3.8"
   },
   "config": {
     "preferred-install": "dist",

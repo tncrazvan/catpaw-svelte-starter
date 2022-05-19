@@ -1,4 +1,5 @@
 <?php
+
 namespace {
 
     use CatPaw\Web\Attributes\Produces;
@@ -7,8 +8,9 @@ namespace {
 
     use function app\api\pages\home;
 
-	#[StartWebServer]
-	function main() {
-        Route::get("/api/pages/", #[Produces("application/json")] fn()=>home());
-	}
+    #[StartWebServer]
+    function main()
+    {
+        Route::get("/api/pages/", #[Produces("application/json")] fn () =>home());
+    }
 }
