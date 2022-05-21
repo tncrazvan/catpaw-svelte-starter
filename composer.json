@@ -19,7 +19,8 @@
     "fix": [
       "@php ./vendor/bin/php-cs-fixer fix src/php",
       "@php ./vendor/bin/php-cs-fixer fix tests/php"
-    ]
+    ],
+    "test": "@php vendor/bin/phpunit tests"
   },
   "authors": [
     {
