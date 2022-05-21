@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "a7ad2eb3b7f8c8f2d88dcbc909cb126c",
+    "content-hash": "c8727812eaa964ddc90479094f64047a",
     "packages": [
         {
             "name": "amphp/amp",
@@ -1363,16 +1363,16 @@
         },
         {
             "name": "catpaw/core",
-            "version": "1.2.13",
+            "version": "1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tncrazvan/catpaw-core.git",
-                "reference": "4e862d5e202becef052a94b6b670d5c29f883af6"
+                "reference": "7414f05dd9bcde885bf3e2a88f4f3bef39591d52"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tncrazvan/catpaw-core/zipball/4e862d5e202becef052a94b6b670d5c29f883af6",
-                "reference": "4e862d5e202becef052a94b6b670d5c29f883af6",
+                "url": "https://api.github.com/repos/tncrazvan/catpaw-core/zipball/7414f05dd9bcde885bf3e2a88f4f3bef39591d52",
+                "reference": "7414f05dd9bcde885bf3e2a88f4f3bef39591d52",
                 "shasum": ""
             },
             "require": {
@@ -1386,6 +1386,10 @@
                 "ext-openssl": "*",
                 "ext-zlib": "*",
                 "php": "^8.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.8",
+                "phpunit/phpunit": "^9.5"
             },
             "type": "library",
             "autoload": {
@@ -1416,34 +1420,41 @@
             ],
             "support": {
                 "issues": "https://github.com/tncrazvan/catpaw-core/issues",
-                "source": "https://github.com/tncrazvan/catpaw-core/tree/1.2.13"
+                "source": "https://github.com/tncrazvan/catpaw-core/tree/1.3.0"
             },
-            "time": "2022-05-15T15:13:48+00:00"
+            "time": "2022-05-21T12:23:44+00:00"
         },
         {
             "name": "catpaw/web",
-            "version": "1.1.16",
+            "version": "1.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/tncrazvan/catpaw-web.git",
-                "reference": "fc2533ec402fb4803ec8a3b678070783e35bf21f"
+                "reference": "a2aa728094fd4aeb07edfc926e119b5c74d628c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/tncrazvan/catpaw-web/zipball/fc2533ec402fb4803ec8a3b678070783e35bf21f",
-                "reference": "fc2533ec402fb4803ec8a3b678070783e35bf21f",
+                "url": "https://api.github.com/repos/tncrazvan/catpaw-web/zipball/a2aa728094fd4aeb07edfc926e119b5c74d628c1",
+                "reference": "a2aa728094fd4aeb07edfc926e119b5c74d628c1",
                 "shasum": ""
             },
             "require": {
                 "amphp/amp": "^2.6",
                 "amphp/file": "^2.0",
-                "catpaw/core": "^1.2",
+                "catpaw/core": "^1.3",
                 "erusev/parsedown": "^1.7",
                 "ext-mbstring": "*",
                 "php": "^8.0"
             },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^3.8",
+                "phpunit/phpunit": "^9.5"
+            },
             "type": "project",
             "autoload": {
+                "files": [
+                    "src/lib/functions.php"
+                ],
                 "psr-4": {
                     "CatPaw\\Web\\": "src/lib/"
                 }
@@ -1472,9 +1483,9 @@
             ],
             "support": {
                 "issues": "https://github.com/tncrazvan/catpaw-web/issues",
-                "source": "https://github.com/tncrazvan/catpaw-web/tree/1.1.16"
+                "source": "https://github.com/tncrazvan/catpaw-web/tree/1.2.0"
             },
-            "time": "2022-05-15T23:34:11+00:00"
+            "time": "2022-05-21T12:28:40+00:00"
         },
         {
             "name": "daverandom/libdns",
