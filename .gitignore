@@ -16,3 +16,5 @@
 /.svelte-kit/
 /package/
 /dist/
+/package-lock.json
+/composer.lock
