@@ -2,11 +2,7 @@
   "recommendations": [
     "svelte.svelte-vscode",
     "emeraldwalk.RunOnSave",
-    "HookyQR.beautify",
-    "aaron-bond.better-comments",
-    "ExodiusStudios.comment-anchors",
     "dbaeumer.vscode-eslint",
-    "csstools.postcss",
     "rvest.vs-code-prettier-eslint",
     "fivethree.vscode-svelte-snippets",
     "xdebug.php-debug",
