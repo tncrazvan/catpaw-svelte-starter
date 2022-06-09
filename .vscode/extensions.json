@@ -4,9 +4,9 @@
     "dbaeumer.vscode-eslint",
     "rvest.vs-code-prettier-eslint",
     "fivethree.vscode-svelte-snippets",
-		"xdebug.php-debug",
-		"bmewburn.vscode-intelephense-client",
-		"emeraldwalk.RunOnSave",
-		"getpsalm.psalm-vscode-plugin"
+    "xdebug.php-debug",
+    "bmewburn.vscode-intelephense-client",
+    "emeraldwalk.RunOnSave",
+    "getpsalm.psalm-vscode-plugin"
   ]
 }
