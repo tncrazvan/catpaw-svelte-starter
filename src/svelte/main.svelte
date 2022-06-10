@@ -1,8 +1,6 @@
 <script lang="ts">
   import { PhpRoute } from '@catpaw'
-
-  import HomePage from '@pages/HomePage.svelte'
-  import NotFoundPage from '@pages/NotFoundPage.svelte'
+  import { HomePage, NotFoundPage } from '@pages'
   import { Route, Router } from 'svelte-routing'
 </script>
 

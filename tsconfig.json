@@ -17,14 +17,14 @@
     "paths": {
       "@catpaw": [".internal/catpaw.ts"],
 
-      "@components/*": ["src/svelte/lib/components/*"],
-      "@pages/*": ["src/svelte/lib/pages/*"],
-      "@types/*": ["src/svelte/lib/types/*"],
-      "@scripts/*": ["src/svelte/lib/scripts/*"],
-      "@assets/*": ["src/svelte/assets/*"],
+      "@components": ["src/svelte/@components.ts"],
+      "@pages": ["src/svelte/@pages.ts"],
+      "@types": ["src/svelte/@types.d.ts"],
+      "@scripts": ["src/svelte/@scripts.ts"],
+      "@assets": ["src/svelte/@assets.ts"],
 
-      "@stores": ["src/svelte/lib/@stores.ts"],
-      "@constants": ["src/svelte/lib/@constants.ts"]
+      "@stores": ["src/svelte/@stores.ts"],
+      "@constants": ["src/svelte/@constants.ts"]
     }
   },
   "include": [

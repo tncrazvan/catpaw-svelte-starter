@@ -12,14 +12,13 @@ export default defineConfig({
     alias: {
       '@catpaw': `${path.resolve(dir, '.internal/catpaw.ts')}`,
 
-      '@components': `${path.resolve(dir, 'src/svelte/lib/components')}`,
-      '@pages': `${path.resolve(dir, 'src/svelte/lib/pages')}`,
-      '@types': `${path.resolve(dir, 'src/svelte/lib/types')}`,
-      '@scripts': `${path.resolve(dir, 'src/svelte/lib/scripts')}`,
-      '@assets': `${path.resolve(dir, 'src/svelte/assets')}`,
-
-      '@stores': `${path.resolve(dir, 'src/svelte/lib/stores.ts')}`,
-      '@constants': `${path.resolve(dir, 'src/svelte/lib/constants.ts')}`,
+      '@components': `${path.resolve(dir, 'src/svelte/@components.ts')}`,
+      '@pages': `${path.resolve(dir, 'src/svelte/@pages.ts')}`,
+      '@types': `${path.resolve(dir, 'src/svelte/@types.d.ts')}`,
+      '@scripts': `${path.resolve(dir, 'src/svelte/@scripts.ts')}`,
+      '@assets': `${path.resolve(dir, 'src/svelte/@assets.ts')}`,
+      '@stores': `${path.resolve(dir, 'src/svelte/@stores.ts')}`,
+      '@constants': `${path.resolve(dir, 'src/svelte/@constants.ts')}`,
     },
   },
   optimizeDeps: {
