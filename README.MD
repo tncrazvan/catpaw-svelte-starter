@@ -64,10 +64,40 @@ xdebug.client_port=9003
 xdebug.start_with_request=yes
 ```
 
-# Start
+# Start (dev)
 
-You should now be able to run your project by running
+During development you need to run both the Vite and the CatPaw servers.<br/>
+The Vite server will act as a proxy for your `/api/*` requests, redirecting them to the CatPaw server.<br/>
+You can change the path of your apis in the [./vite.config.js](./vite.config.js) file (`server.proxy` section).<br/>
+
+First off start your CatPaw server using
+```bash
+composer start
+```
+or
 ```bash
 ./start
 ```
-and debug in vscode and phpstorm listening for xdebug connections.
+
+then start your vite server
+
+```bash
+npm run dev
+```
+
+all your communication with CatPaw will happen through the Vite proxy.
+
+# Start  (prod)
+
+Once you've built your project with 
+```
+npm run build
+```
+you can start your server in production by running
+```bash
+./start
+```
+
+### Note
+
+Don't use the Vite server in production, build your project and run the proper CatPaw server.
