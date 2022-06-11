@@ -1,2 +1,6 @@
 .eslintrc.cjs
 vite.config.js
+tailwind.config.cjs
+tsconfig.json
+svelte.config.js
+postcss.config.cjs
