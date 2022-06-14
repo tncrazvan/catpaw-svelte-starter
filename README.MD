@@ -1,4 +1,4 @@
-# Debugging with VSCode
+# Debugging with VSCode (XDebug)
 
 In order to debug with vscode you will need to configure both vscode and xdebug (3.x).
 
@@ -45,7 +45,7 @@ xdebug.client_host=127.0.0.1
 xdebug.client_port=9003
 ```
 
-# Debugging with PHPStorm
+# Debugging with PHPStorm (XDebug)
 
 If you're using PHPStorm you will need to start listening for PHP Xdebug connections.
 
@@ -67,8 +67,7 @@ xdebug.start_with_request=yes
 # Start (dev)
 
 During development you need to run both the Vite and the CatPaw servers.<br/>
-The Vite server will act as a proxy for your `/api/*` requests, redirecting them to the CatPaw server.<br/>
-You can change the path of your apis in the [./vite.config.js](./vite.config.js) file (`server.proxy` section).<br/>
+The Vite server will act as a proxy for your `/api/*` and `*:state` requests, redirecting them to the CatPaw server.<br/>
 
 First off start your CatPaw server using
 ```bash
@@ -85,7 +84,7 @@ then start your vite server
 npm run dev
 ```
 
-all your communication with CatPaw will happen through the Vite proxy.
+all your communication with CatPaw will happen through the Vite proxy, so you'll be working on [http://127.0.0.1:3000](http://127.0.0.1:3000/).
 
 # Start  (prod)
 
@@ -100,4 +99,4 @@ you can start your server in production by running
 
 ### Note
 
-Don't use the Vite server in production, build your project and run the proper CatPaw server.
+Don't use the Vite server in production, build your project and run the CatPaw server.

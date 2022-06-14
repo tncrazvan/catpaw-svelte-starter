@@ -49,7 +49,8 @@
     "catpaw/core": "^1.3",
     "amphp/amp": "^2.6",
     "amphp/file": "^2.0",
-    "catpaw/web": "^1.2"
+    "catpaw/web": "^1.2",
+    "catpaw/store": "^1.0"
   },
   "autoload-dev": {
     "Tests\\": "tests/"

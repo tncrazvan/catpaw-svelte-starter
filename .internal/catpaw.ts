@@ -1,2 +1,2 @@
-import PhpRoute from './svelte/PhpRoute.svelte'
-export { PhpRoute }
+import StatefulRoute from './svelte/StatefulRoute.svelte'
+export { StatefulRoute }

@@ -1,6 +1,8 @@
 <script lang="ts">
+  import { navigate } from 'svelte-routing'
+
   import type { Writable } from 'svelte/store'
-  export let data: Writable<{
+  export let state: Writable<{
     clicks: number
   }>
 </script>
@@ -10,8 +12,8 @@
   <button
     class="btn"
     on:click={() => {
-      $data.clicks++
+      $state.clicks++
     }}>Click me</button
   >
-  <h1>clicks: {$data.clicks}</h1>
+  <h1>clicks: {$state.clicks}</h1>
 </div>
