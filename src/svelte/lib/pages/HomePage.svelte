@@ -1,6 +1,4 @@
 <script lang="ts">
-  import { navigate } from 'svelte-routing'
-
   import type { Writable } from 'svelte/store'
   export let state: Writable<{
     clicks: number
