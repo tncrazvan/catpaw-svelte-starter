@@ -1,6 +1,6 @@
 <?php
 
-namespace app\pages;
+namespace App\Pages;
 
 use CatPaw\Web\Attributes\Path;
 use CatPaw\Web\Utilities\SPA;
