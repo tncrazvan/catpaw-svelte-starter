@@ -22,7 +22,8 @@
     ],
     "action:test": "php vendor/bin/phpunit tests",
     "test": "php -dxdebug.start_with_request=yes -dxdebug.mode=debug vendor/bin/phpunit tests",
-    "start": "php -dxdebug.start_with_request=yes -dxdebug.mode=debug ./bin/start -f'src/php/main.php' -s'src/php/lib/' -v"
+    "start": "php -dxdebug.start_with_request=yes -dxdebug.mode=debug ./bin/start -f'src/php/main.php' -s'src/php/lib/' -v",
+    "watch": "php -dxdebug.start_with_request=yes -dxdebug.mode=debug ./bin/start -f'src/php/main.php' -s'src/php/lib/' -v -w -p"
   },
   "authors": [
     {
@@ -45,7 +46,8 @@
     "amphp/amp": "^2.6",
     "amphp/file": "^2.0",
     "catpaw/web": "^1.2",
-    "catpaw/store": "^1.0"
+    "catpaw/store": "^1.0",
+    "amphp/process": "^1.1"
   },
   "autoload-dev": {
     "Tests\\": "tests/"
