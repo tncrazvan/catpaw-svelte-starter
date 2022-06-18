@@ -1,8 +1,8 @@
 {
-  "name": "catpaw/starter-svelte",
+  "name": "catpaw/svelte-starter",
   "type": "project",
   "description": "A php CatPaw starter template using svelte",
-  "homepage": "https://github.com/tncrazvan/catpaw-starter-svelte",
+  "homepage": "https://github.com/tncrazvan/catpaw-svelte-starter",
   "license": "MIT",
   "keywords": [
     "php",
