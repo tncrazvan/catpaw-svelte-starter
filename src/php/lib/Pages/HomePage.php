@@ -20,11 +20,11 @@ class HomePage extends SPA {
         ];
     }
 
-    protected function setState(array $state) {
+    protected function setState(array $state, array &$session): void {
         $this->state = $state;
     }
 
-    protected function getState(): array {
+    protected function getState(array &$session): array {
         return $this->state;
     }
 }
