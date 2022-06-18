@@ -10,21 +10,21 @@ use CatPaw\Web\Utilities\SPA;
 
 #[Path("/")]
 class HomePage extends SPA {
-    protected $state;
+    protected array $state = [];
 
     #[Entry]
     public function setup() {
         $this->state = [
             "clicks"  => 0,
-            "message" => lazy("This is a message")
+            "message" => lazy("This is a lazy message")
         ];
     }
 
-    protected function setState($state) {
+    protected function setState(array $state) {
         $this->state = $state;
     }
 
-    protected function getState() {
+    protected function getState(): array {
         return $this->state;
     }
 }
