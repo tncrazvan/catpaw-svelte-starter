@@ -6,7 +6,6 @@
     "fivethree.vscode-svelte-snippets",
     "xdebug.php-debug",
     "bmewburn.vscode-intelephense-client",
-    "emeraldwalk.RunOnSave",
-    "getpsalm.psalm-vscode-plugin"
+    "emeraldwalk.RunOnSave"
   ]
 }
