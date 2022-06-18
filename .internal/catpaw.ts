@@ -1,2 +1,5 @@
 import StatefulRoute from './svelte/StatefulRoute.svelte'
-export { StatefulRoute }
+import { lazy, type Lazy } from './lazy';
+
+
+export { StatefulRoute, lazy, type Lazy }
