@@ -2,29 +2,28 @@
 
 namespace App\Pages;
 
-use function App\lazy;
-use CatPaw\Attributes\Entry;
 use CatPaw\Web\Attributes\Path;
+
+
+use function CatPaw\Web\lazy;
 
 use CatPaw\Web\Utilities\SPA;
 
 #[Path("/")]
 class HomePage extends SPA {
-    protected array $state = [];
+    protected function setState(array $state, array &$session):void {
+        $session['state'] = $state;
+    }
 
-    #[Entry]
-    public function setup() {
-        $this->state = [
+    protected function getState(callable $id, array &$session): array {
+        $session['state'] = [
             "clicks"  => 0,
-            "message" => lazy("This is a lazy message")
+            "message" => lazy($id('message'), 'This is a lazy message')->push($session['message'])->build(),
+            ...($session['state'] ?? [])
+            
         ];
-    }
 
-    protected function setState(array $state, array &$session): void {
-        $this->state = $state;
-    }
-
-    protected function getState(array &$session): array {
-        return $this->state;
+        
+        return $session['state'];
     }
 }
