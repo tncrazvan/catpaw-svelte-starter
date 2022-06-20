@@ -3,10 +3,7 @@
 namespace App\Pages;
 
 use CatPaw\Web\Attributes\Path;
-
-
 use function CatPaw\Web\lazy;
-
 use CatPaw\Web\Utilities\SPA;
 
 #[Path("/")]

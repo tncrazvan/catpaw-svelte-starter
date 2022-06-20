@@ -22,12 +22,14 @@
     class="btn"
     on:click={() => {
       $clicks++
-    }}>Click me</button
+    }}
   >
+    <span>Click me</span>
+  </button>
 
   <div class="pt-1" />
   <span class="gap-2">
-    Clicks
+    <span>Clicks</span>
     <div class="badge">+{$clicks}</div>
   </span>
   <div class="pt-1" />
