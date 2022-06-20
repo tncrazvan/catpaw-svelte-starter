@@ -18,7 +18,7 @@ class HomePage extends SPA {
         return [
             "clicks"  => lazy($id('clicks'), 0)->push($session['clicks'])->build(),
             "message" => lazy($id('message'), 'This is a lazy message')->push($session['message'])->build(),
-            ...($session['state'] ?? [])
+            ...($this->state ?? [])
         ];
     }
 }
