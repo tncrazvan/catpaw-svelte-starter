@@ -14,10 +14,10 @@ class HomePage extends SPA {
         $this->state = $state;
     }
 
-    protected function getState(callable $id, array &$session): array {
+    protected function getState(callable $path, array &$session): array {
         return [
-            "clicks"  => lazy($id('clicks'), 0)->push($session['clicks'])->build(),
-            "message" => lazy($id('message'), 'This is a lazy message')->push($session['message'])->build(),
+            "clicks"  => lazy($path('clicks'), 0)->push($session['clicks'])->build(),
+            "message" => lazy($path('message'), 'This is a lazy message')->push($session['message'])->build(),
             ...($this->state ?? [])
         ];
     }
