@@ -11,19 +11,17 @@ use CatPaw\Web\Utilities\SPA;
 
 #[Path("/")]
 class HomePage extends SPA {
+    private array $state = [];
+
     protected function setState(array $state, array &$session):void {
-        $session['state'] = $state;
+        $this->state = $state;
     }
 
     protected function getState(callable $id, array &$session): array {
-        $session['state'] = [
-            "clicks"  => 0,
+        return [
+            "clicks"  => lazy($id('clicks'), 0)->push($session['clicks'])->build(),
             "message" => lazy($id('message'), 'This is a lazy message')->push($session['message'])->build(),
             ...($session['state'] ?? [])
-            
         ];
-
-        
-        return $session['state'];
     }
 }

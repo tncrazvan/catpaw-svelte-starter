@@ -1,16 +1,17 @@
 <script lang="ts">
   import { lazy, type Lazy } from '@catpaw'
-import { Icon } from '@components'  
+  import { Icon } from '@components'
 
   import { mdiDatabase } from '@mdi/js'
 
   import type { Writable } from 'svelte/store'
   export let state: Writable<{
-    clicks: number
+    clicks: Lazy<number>
     message: Lazy<string>
   }>
 
   const message = lazy<string>($state.message)
+  const clicks = lazy<number>($state.clicks)
 
   let localMessage = $message
 </script>
@@ -20,14 +21,14 @@ import { Icon } from '@components'
   <button
     class="btn"
     on:click={() => {
-      $state.clicks++
+      $clicks++
     }}>Click me</button
   >
 
   <div class="pt-1" />
   <span class="gap-2">
     Clicks
-    <div class="badge">+{$state.clicks}</div>
+    <div class="badge">+{$clicks}</div>
   </span>
   <div class="pt-1" />
 

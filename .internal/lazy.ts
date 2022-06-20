@@ -9,9 +9,7 @@ export function lazy<T>(store: Lazy<T>) {
       return value
     }),
     set: (value: T) => {
-      const tmp = {} as Record<string, T>
-      tmp[lazykey] = value
-      $setup[lazykey].set(tmp)
+      $setup[lazykey].set(value)
     },
   }
 }

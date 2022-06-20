@@ -53,7 +53,9 @@
           firstPass = false
           return
         }
-        await axios.put(`/:lazy:${lazyid}${location.search}`, value, {
+        const tmp:Record<string, any> = {}
+        tmp[lazykey] = value
+        await axios.put(`/:lazy:${lazyid}${location.search}`, tmp, {
           headers: {
             'Content-Type': 'application/json',
           },
