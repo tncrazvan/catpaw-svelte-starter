@@ -1,6 +1,7 @@
 #!/usr/bin/env php
 <?php
 use CatPaw\Bootstrap;
+use CatPaw\Utilities\Strings;
 
 require 'vendor/autoload.php';
 
