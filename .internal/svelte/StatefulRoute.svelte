@@ -22,8 +22,8 @@
   function isLazy(value: any): false | string {
     if (isObject(value)) {
       const keys = Object.keys(value)
-      if (1 === keys.length && keys[0].startsWith('__lazy;')) {
-        return keys[0].substring(7)
+      if (1 === keys.length && keys[0] === '!lazy') {
+        return value[keys[0]]
       }
     }
     return false
@@ -32,43 +32,39 @@
   let cache: Record<string, any> = {}
 
   async function unwrap(data: any): Promise<{
-    lazyid: false | string
+    lazyPath: false | string
     computed: any
     plain: any
   }> {
-    const lazyid = isLazy(data)
+    const lazyPath = isLazy(data)
 
-    if (lazyid) {
-      const lazykey = `__lazy;${lazyid}`
-      if (cache[lazykey] ?? false) {
-        return cache[lazykey]
+    if (lazyPath) {
+      if (cache[lazyPath] ?? false) {
+        return cache[lazyPath]
       }
-      const path = data[lazykey]
-      const response = await axios(path)
-      $setup[lazykey] = writable(response.data[lazykey])
+      const response = await axios(lazyPath)
+      $setup[lazyPath] = writable(response.data['!lazy'])
 
       let firstPass = true
-      $setup[lazykey].subscribe(async value => {
+      $setup[lazyPath].subscribe(async value => {
         if (firstPass) {
           firstPass = false
           return
         }
-        const tmp: Record<string, any> = {}
-        tmp[lazykey] = value
-        await axios.put(`${lazyid}${location.search}`, tmp, {
+        await axios.put(`${lazyPath}${location.search}`, { '!lazy': value }, {
           headers: {
             'Content-Type': 'application/json',
           },
         })
       })
 
-      cache[lazykey] = { lazyid, computed: writable(data), plain: data }
-      return cache[lazykey]
+      cache[lazyPath] = { lazyPath, computed: writable(data), plain: data }
+      return cache[lazyPath]
     }
 
     if (isStore(data)) return unwrap(get(data))
 
-    if (!isObject(data)) return { lazyid: false, computed: data, plain: data }
+    if (!isObject(data)) return { lazyPath: false, computed: data, plain: data }
 
     const computedState: Record<string, any> = {}
     const plainState: Record<string, any> = {}
@@ -83,15 +79,15 @@
       plainState[key] = plain
     }
 
-    return { lazyid: false, computed: computedState, plain: plainState }
+    return { lazyPath: false, computed: computedState, plain: plainState }
   }
 
   async function register(data: any): Promise<Writable<any>> {
     const { computed } = await unwrap(data)
     const store = writable(computed)
     store.subscribe(async function (v) {
-      const { lazyid, plain } = await unwrap(v)
-      if (lazyid) {
+      const { lazyPath, plain } = await unwrap(v)
+      if (lazyPath) {
         return
       }
       await axios.put(`${location.pathname}:state${location.search}`, plain, {

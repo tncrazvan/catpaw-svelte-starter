@@ -3,13 +3,13 @@ import { type Writable, get, derived, writable } from 'svelte/store'
 export type Lazy<T> = Writable<Record<string, T>>
 
 export function lazy<T>(store: Lazy<T>) {
-  const lazykey = Object.keys(get(store))[0]
+  const lazyPath = get(store)['!lazy'] as unknown as string
   return {
-    ...derived($setup[lazykey], value => {
+    ...derived($setup[lazyPath], value => {
       return value
     }),
     set: (value: T) => {
-      $setup[lazykey].set(value)
+      $setup[lazyPath].set(value)
     },
   }
 }
