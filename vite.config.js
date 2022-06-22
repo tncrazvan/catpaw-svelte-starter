@@ -48,7 +48,7 @@ export default defineConfig({
         secure: false,
         ws: true,
       },
-      '^/:lazy:.*': {
+      '^.*:lazy:.*': {
         target: 'http://127.0.0.1:8080',
         changeOrigin: false,
         secure: false,
