@@ -4,16 +4,6 @@
   "description": "A php CatPaw starter template using svelte",
   "homepage": "https://github.com/tncrazvan/catpaw-svelte-starter",
   "license": "MIT",
-  "keywords": [
-    "php",
-    "cli",
-    "server",
-    "http",
-    "websocket",
-    "starter",
-    "template",
-    "catpaw"
-  ],
   "scripts": {
     "load": "composer dump-autoload -o",
     "fix": [
