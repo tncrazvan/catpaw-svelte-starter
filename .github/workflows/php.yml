@@ -15,10 +15,12 @@ jobs:
       matrix:
         include:
           - php: '8.2'
-          - bun: '1.0.19'
 
     steps:
     - uses: actions/checkout@v2
+    - uses: oven-sh/setup-bun@v1 # Setup bun
+      with:
+          bun-version: latest # You can also use a specific version
 
     - name: Validate composer.json and composer.lock
       run: composer validate
