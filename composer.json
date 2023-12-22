@@ -20,8 +20,8 @@
     "download:build": "[ ! -f build.phar ] && wget https://github.com/tncrazvan/catpaw-build/releases/latest/download/build.phar || echo ''",
     "download:psalm": "[ ! -f psalm.phar ] && wget https://github.com/vimeo/psalm/releases/latest/download/psalm.phar || echo ''",
     "dev:client:initialize": "[ ! -f ./client/package.json ] && bunx degit https://github.com/tncrazvan/svelte-starter client || echo ''",
-    "dev:client:load": "cd ./client && bun i",
-    "dev:client:watch": "cd ./client && bun dev",
+    "dev:client:load": "[ -f ./client/package.json ] && cd ./client && bun i",
+    "dev:client:watch": "[ -f ./client/package.json ] && cd ./client && bun dev",
     "post-autoload-dump": [
       "@download:psalm",
       "@download:build",
