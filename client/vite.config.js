@@ -26,7 +26,7 @@ export default defineConfig({
   },
   build: {
     sourcemap: true,
-    outDir: '../www',
+    outDir: '../resources/www',
     minify: false,
     emptyOutDir: true,
     rollupOptions: {
@@ -41,7 +41,7 @@ export default defineConfig({
     https: false,
     host: '::',
     proxy: {
-      '^/api/.*': {
+      '^/v1/.*': {
         target: 'http://127.0.0.1:8000',
         changeOrigin: false,
         rewrite: function replace(path) {
