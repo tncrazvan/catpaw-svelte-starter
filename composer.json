@@ -19,22 +19,16 @@
     "dev:build": "cd ./client && bun run build && cd .. && php -dxdebug.mode=off -dxdebug.start_with_request=no -dphar.readonly=0 ./build.phar --init-config",
     "download:build": "[ ! -f build.phar ] && wget https://github.com/tncrazvan/catpaw-build/releases/latest/download/build.phar || echo ''",
     "download:psalm": "[ ! -f psalm.phar ] && wget https://github.com/vimeo/psalm/releases/latest/download/psalm.phar || echo ''",
-    "dev:client:initialize": "[ ! -f ./client/package.json ] && bunx degit https://github.com/tncrazvan/svelte-starter client || echo ''",
-    "dev:client:swaggerize": "mv ./swaggerui ./client/public/swaggerui && rm resources -fr",
     "dev:client:load": "[ -f ./client/package.json ] && cd ./client && bun i",
     "dev:client:watch": "[ -f ./client/package.json ] && cd ./client && bun dev",
     "post-autoload-dump": [
       "@download:psalm",
       "@download:build",
-      "@dev:client:initialize",
-      "@dev:client:swaggerize",
       "@dev:client:load"
     ],
     "post-create-project-cmd": [
       "@download:psalm",
       "@download:build",
-      "@dev:client:initialize",
-      "@dev:client:swaggerize",
       "@dev:client:load"
     ]
   },
