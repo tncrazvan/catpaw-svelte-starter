@@ -26,7 +26,7 @@ export default defineConfig({
   },
   build: {
     sourcemap: true,
-    outDir: 'dist',
+    outDir: '../www',
     minify: false,
     emptyOutDir: true,
     rollupOptions: {
