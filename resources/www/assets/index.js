@@ -929,7 +929,7 @@ function create_fragment$3(ctx) {
     catch: create_catch_block_1,
     value: 0
   };
-  handle_promise(fetch("/api/v1"), info);
+  handle_promise(fetch("/api"), info);
   return {
     c() {
       await_block_anchor = empty();

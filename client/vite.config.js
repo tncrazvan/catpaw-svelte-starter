@@ -41,7 +41,7 @@ export default defineConfig({
     https: false,
     host: '::',
     proxy: {
-      '^/v1/.*': {
+      '^/api/.*': {
         target: 'http://127.0.0.1:8000',
         changeOrigin: false,
         rewrite: function replace(path) {
