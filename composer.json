@@ -19,8 +19,8 @@
     "dev:build": "cd ./client && bun run build && cd .. && php -dxdebug.mode=off -dxdebug.start_with_request=no -dphar.readonly=0 ./build.phar --init-config",
     "download:build": "[ ! -f build.phar ] && wget https://github.com/tncrazvan/catpaw-build/releases/latest/download/build.phar || echo ''",
     "download:psalm": "[ ! -f psalm.phar ] && wget https://github.com/vimeo/psalm/releases/latest/download/psalm.phar || echo ''",
-    "dev:client:load": "cd ./resources/client && bun i",
-    "dev:client:watch": "cd ./resources/client && bun dev",
+    "dev:client:load": "cd ./client && bun i",
+    "dev:client:watch": "cd ./client && bun dev",
     "post-autoload-dump": [
       "@download:psalm",
       "@download:build",
