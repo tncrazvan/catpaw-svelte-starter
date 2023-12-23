@@ -9,7 +9,11 @@ use CatPaw\Web\Server;
 use CatPaw\Web\Services\OpenAPIService;
 
 function main():void {
-    $server = Server::create(interfaces: "127.0.0.1:8000");
+    $server = Server::create(
+        apiPrefix: '/api',
+        api: "./server/api",
+        www: "./server/www",
+    );
     $server->router->get('/openapi', #[IgnoreOpenAPI] fn (OpenAPIService $oa) => $oa->getData());
     $server->router->get("@404", fileServer(
         server: $server,
