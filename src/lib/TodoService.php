@@ -5,7 +5,6 @@ use function CatPaw\uuid;
 
 use CatPaw\Web\Page;
 
-
 #[Service]
 class TodoService {
     /** @var array<Todo> */
