@@ -15,16 +15,18 @@ function main():void {
         www: "./server/www",
     );
     $server->router->get('/openapi', #[IgnoreOpenAPI] fn (OpenApiService $oa) => $oa->getData());
-    $server->router->get("@404", fileServer(
-        server: $server,
-        fallback: "index.html",
-        overwrite: function(string $fileName) use ($server) {
-            // Required for SPA mode
-            if (isDirectory($fileName) || !exists($fileName)) {
-                return "$server->www/index.html";
+    $server->setFileServer(
+        fileServer(
+            server: $server,
+            fallback: "index.html",
+            overwrite: function(string $fileName) use ($server) {
+                // Required for SPA mode
+                if (isDirectory($fileName) || !exists($fileName)) {
+                    return "$server->www/index.html";
+                }
+                return $fileName;
             }
-            return $fileName;
-        }
-    ));
+        )
+    );
     $server->start();
 }
