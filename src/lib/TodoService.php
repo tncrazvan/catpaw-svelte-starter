@@ -10,33 +10,17 @@ class TodoService {
     /** @var array<Todo> */
     private array $items = [];
     #[Entry] function start():void {
-        Todo::create(fn (Todo $item) => [
-            $item->checked     = false,
-            $item->description = '1st item',
-            $item->id          = $id = uuid(),
-            $this->items[$id]  = $item,
-        ]);
+        $item1 = new Todo( id: uuid(), description:'1st item', checked: false );
+        $item2 = new Todo( id: uuid(), description:'2nd item', checked: false );
+        $item3 = new Todo( id: uuid(), description:'3rd item', checked: false );
+        $item4 = new Todo( id: uuid(), description:'4th item', checked: false );
+        $item5 = new Todo( id: uuid(), description:'5th item', checked: false );
 
-        Todo::create(fn (Todo $item) => [
-            $item->checked     = false,
-            $item->description = '2nd item',
-            $item->id          = $id = uuid(),
-            $this->items[$id]  = $item,
-        ]);
-
-        Todo::create(fn (Todo $item) => [
-            $item->checked     = false,
-            $item->description = '3rd item',
-            $item->id          = $id = uuid(),
-            $this->items[$id]  = $item,
-        ]);
-
-        Todo::create(fn (Todo $item) => [
-            $item->checked     = false,
-            $item->description = '4th item',
-            $item->id          = $id = uuid(),
-            $this->items[$id]  = $item,
-        ]);
+        $this->items[$item1->id] = $item1;
+        $this->items[$item2->id] = $item2;
+        $this->items[$item3->id] = $item3;
+        $this->items[$item4->id] = $item4;
+        $this->items[$item5->id] = $item5;
     }
 
     public function findAll(Page $page):array {
@@ -62,14 +46,9 @@ class TodoService {
     }
 
     public function add(string $description):Todo {
-        $id   = uuid();
-        $item = Todo::create(fn (Todo $item) => [
-            $item->checked     = false,
-            $item->description = $description,
-            $item->id          = $id,
-        ]);
+        $id               = uuid();
+        $item             = new Todo( id: $id, description: $description, checked: false );
         $this->items[$id] = $item;
-
         return $item;
     }
 
