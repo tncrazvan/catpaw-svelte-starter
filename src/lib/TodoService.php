@@ -1,11 +1,9 @@
 <?php
-
 use CatPaw\Attributes\Entry;
 use CatPaw\Attributes\Service;
 use function CatPaw\uuid;
 
 use CatPaw\Web\Page;
-
 
 
 #[Service]
