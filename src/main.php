@@ -10,6 +10,8 @@ use CatPaw\Web\Services\OpenApiService;
 
 function main():void {
     $server = Server::create(
+        interfaces:"0.0.0.0:5757",
+        redirectToSecure: false,
         apiPrefix: '/api',
         api: "./server/api",
         www: "./server/www",
