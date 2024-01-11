@@ -1,7 +1,9 @@
 <?php
-use CatPaw\Attributes\Entry;
-use CatPaw\Attributes\Service;
-use function CatPaw\uuid;
+namespace App;
+
+use CatPaw\Core\Attributes\Entry;
+use CatPaw\Core\Attributes\Service;
+use function CatPaw\Core\uuid;
 
 use CatPaw\Web\Page;
 

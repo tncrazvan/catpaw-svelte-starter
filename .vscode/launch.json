@@ -5,18 +5,15 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Listen for Xdebug",
+            "name": "Launch",
             "type": "php",
             "request": "launch",
-            "port": 9003
-        },
-        {
-            "name": "Launch currently open script",
-            "type": "php",
-            "request": "launch",
-            "program": "${file}",
-            "cwd": "${fileDirname}",
-            "port": 0,
+            "program": "${workspaceRoot}/bin/start",
+            "args": [
+                "--libraries='./src/lib'",
+                "--entry='./src/main.php'"
+            ],
+            "cwd": "${workspaceRoot}",
             "runtimeArgs": [
                 "-dxdebug.start_with_request=yes"
             ],
@@ -26,23 +23,10 @@
             }
         },
         {
-            "name": "Launch Built-in web server",
+            "name": "Listen",
             "type": "php",
             "request": "launch",
-            "runtimeArgs": [
-                "-dxdebug.mode=debug",
-                "-dxdebug.start_with_request=yes",
-                "-S",
-                "localhost:0"
-            ],
-            "program": "",
-            "cwd": "${workspaceRoot}",
-            "port": 9003,
-            "serverReadyAction": {
-                "pattern": "Development Server \\(http://localhost:([0-9]+)\\) started",
-                "uriFormat": "http://localhost:%s",
-                "action": "openExternally"
-            }
+            "port": 9003
         }
     ]
 }
