@@ -1,5 +1,6 @@
 <?php
 
+use function CatPaw\Core\anyError;
 use function CatPaw\Core\env;
 
 use CatPaw\Core\Unsafe;
@@ -13,25 +14,25 @@ use CatPaw\Web\Services\OpenApiService;
 /**
  * @return Unsafe<void>
  */
-function main():Unsafe {
-    $server = Server::create(
-        interface: env('interface'),
-        www: env('www'),
-        api: env('api'),
-        apiPrefix: env('apiPrefix'),
-    );
+function main() {
+    return anyError(function() {
+        $server = Server::create(
+            interface: env('interface'),
+            www: env('www'),
+            api: env('api'),
+            apiPrefix: env('apiPrefix'),
+        )->try($error) or yield $error;
+    
+        $server
+            ->router
+            ->get('/openapi', #[IgnoreOpenAPI] fn (OpenApiService $oa) => $oa->getData())
+            ->try($error)
+            or yield $error;
 
-    if ($server->error) {
-        return $server;
-    }
-
-    $server->value->router->get('/openapi', #[IgnoreOpenAPI] fn (OpenApiService $oa) => $oa->getData());
-    $fileServer = FileServer::createForSpa($server->value);
-
-    if ($fileServer->error) {
-        return $fileServer;
-    }
-
-    $server->value->setFileServer($fileServer->value);
-    $server->value->start()->await();
+        $fileServer = FileServer::createForSpa($server)->try($error) or yield $error;
+    
+        $server->setFileServer($fileServer);
+        
+        $server->start()->await()->try($error) or yield $error;
+    });
 }
