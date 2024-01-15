@@ -1047,14 +1047,23 @@ async function toggle({ id }) {
   return ok(await response.json());
 }
 function get_then_context(ctx) {
-  ctx[2] = ctx[4][0];
-  ctx[3] = ctx[4][1];
+  ctx[4] = ctx[6][0];
+  ctx[5] = ctx[6][1];
 }
-const get_default_slot_changes$2 = (dirty) => ({});
-const get_default_slot_context$2 = (ctx) => ({ using: { todos: (
-  /*todos*/
-  ctx[2]
-) } });
+const get_default_slot_changes$2 = (dirty) => ({ using: dirty & /*promise*/
+2 });
+const get_default_slot_context$2 = (ctx) => ({
+  using: {
+    todos: (
+      /*todos*/
+      ctx[4]
+    ),
+    reload: (
+      /*reload*/
+      ctx[0]
+    )
+  }
+});
 function create_catch_block$1(ctx) {
   const block = {
     c: noop,
@@ -1084,7 +1093,7 @@ function create_then_block$1(ctx) {
   function select_block_type(ctx2, dirty) {
     if (
       /*error*/
-      ctx2[3]
+      ctx2[5]
     )
       return 0;
     return 1;
@@ -1103,7 +1112,26 @@ function create_then_block$1(ctx) {
     },
     p: function update2(ctx2, dirty) {
       get_then_context(ctx2);
-      if_block.p(ctx2, dirty);
+      let previous_block_index = current_block_type_index;
+      current_block_type_index = select_block_type(ctx2);
+      if (current_block_type_index === previous_block_index) {
+        if_blocks[current_block_type_index].p(ctx2, dirty);
+      } else {
+        group_outros();
+        transition_out(if_blocks[previous_block_index], 1, 1, () => {
+          if_blocks[previous_block_index] = null;
+        });
+        check_outros();
+        if_block = if_blocks[current_block_type_index];
+        if (!if_block) {
+          if_block = if_blocks[current_block_type_index] = if_block_creators[current_block_type_index](ctx2);
+          if_block.c();
+        } else {
+          if_block.p(ctx2, dirty);
+        }
+        transition_in(if_block, 1);
+        if_block.m(if_block_anchor.parentNode, if_block_anchor);
+      }
     },
     i: function intro(local) {
       if (current)
@@ -1126,7 +1154,7 @@ function create_then_block$1(ctx) {
     block,
     id: create_then_block$1.name,
     type: "then",
-    source: "(5:39)    {#if error}",
+    source: "(13:36)    {#if error}",
     ctx
   });
   return block;
@@ -1135,13 +1163,13 @@ function create_else_block$2(ctx) {
   let current;
   const default_slot_template = (
     /*#slots*/
-    ctx[1].default
+    ctx[3].default
   );
   const default_slot = create_slot(
     default_slot_template,
     ctx,
     /*$$scope*/
-    ctx[0],
+    ctx[2],
     get_default_slot_context$2
   );
   const block = {
@@ -1157,21 +1185,21 @@ function create_else_block$2(ctx) {
     },
     p: function update2(ctx2, dirty) {
       if (default_slot) {
-        if (default_slot.p && (!current || dirty & /*$$scope*/
-        1)) {
+        if (default_slot.p && (!current || dirty & /*$$scope, promise*/
+        6)) {
           update_slot_base(
             default_slot,
             default_slot_template,
             ctx2,
             /*$$scope*/
-            ctx2[0],
+            ctx2[2],
             !current ? get_all_dirty_from_scope(
               /*$$scope*/
-              ctx2[0]
+              ctx2[2]
             ) : get_slot_changes(
               default_slot_template,
               /*$$scope*/
-              ctx2[0],
+              ctx2[2],
               dirty,
               get_default_slot_changes$2
             ),
@@ -1199,7 +1227,7 @@ function create_else_block$2(ctx) {
     block,
     id: create_else_block$2.name,
     type: "else",
-    source: "(8:2) {:else}",
+    source: "(16:2) {:else}",
     ctx
   });
   return block;
@@ -1207,7 +1235,7 @@ function create_else_block$2(ctx) {
 function create_if_block$2(ctx) {
   let t_value = (
     /*error*/
-    ctx[3].message + ""
+    ctx[5].message + ""
   );
   let t;
   const block = {
@@ -1217,7 +1245,12 @@ function create_if_block$2(ctx) {
     m: function mount(target, anchor) {
       insert_dev(target, t, anchor);
     },
-    p: noop,
+    p: function update2(ctx2, dirty) {
+      if (dirty & /*promise*/
+      2 && t_value !== (t_value = /*error*/
+      ctx2[5].message + ""))
+        set_data_dev(t, t_value);
+    },
     i: noop,
     o: noop,
     d: function destroy(detaching) {
@@ -1230,7 +1263,7 @@ function create_if_block$2(ctx) {
     block,
     id: create_if_block$2.name,
     type: "if",
-    source: "(6:2) {#if error}",
+    source: "(14:2) {#if error}",
     ctx
   });
   return block;
@@ -1255,6 +1288,7 @@ function create_pending_block$1(ctx) {
 }
 function create_fragment$4(ctx) {
   let await_block_anchor;
+  let promise_1;
   let current;
   let info = {
     ctx,
@@ -1264,10 +1298,11 @@ function create_fragment$4(ctx) {
     pending: create_pending_block$1,
     then: create_then_block$1,
     catch: create_catch_block$1,
-    value: 4,
+    value: 6,
     blocks: [, , ,]
   };
-  handle_promise(find_all(), info);
+  handle_promise(promise_1 = /*promise*/
+  ctx[1], info);
   const block = {
     c: function create() {
       await_block_anchor = empty();
@@ -1285,7 +1320,14 @@ function create_fragment$4(ctx) {
     },
     p: function update2(new_ctx, [dirty]) {
       ctx = new_ctx;
-      update_await_block_branch(info, ctx, dirty);
+      info.ctx = ctx;
+      if (dirty & /*promise*/
+      2 && promise_1 !== (promise_1 = /*promise*/
+      ctx[1]) && handle_promise(promise_1, info))
+        ;
+      else {
+        update_await_block_branch(info, ctx, dirty);
+      }
     },
     i: function intro(local) {
       if (current)
@@ -1321,6 +1363,13 @@ function create_fragment$4(ctx) {
 function instance$4($$self, $$props, $$invalidate) {
   let { $$slots: slots = {}, $$scope } = $$props;
   validate_slots("Find_all", slots, ["default"]);
+  let promise2 = find_all();
+  async function reload() {
+    const result = await find_all();
+    $$invalidate(1, promise2 = new Promise(function run2(send) {
+      send(result);
+    }));
+  }
   const writable_props = [];
   Object.keys($$props).forEach((key) => {
     if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$" && key !== "slot")
@@ -1328,15 +1377,22 @@ function instance$4($$self, $$props, $$invalidate) {
   });
   $$self.$$set = ($$props2) => {
     if ("$$scope" in $$props2)
-      $$invalidate(0, $$scope = $$props2.$$scope);
+      $$invalidate(2, $$scope = $$props2.$$scope);
   };
-  $$self.$capture_state = () => ({ find_all });
-  return [$$scope, slots];
+  $$self.$capture_state = () => ({ find_all, promise: promise2, reload });
+  $$self.$inject_state = ($$props2) => {
+    if ("promise" in $$props2)
+      $$invalidate(1, promise2 = $$props2.promise);
+  };
+  if ($$props && "$$inject" in $$props) {
+    $$self.$inject_state($$props.$$inject);
+  }
+  return [reload, promise2, $$scope, slots];
 }
 class Find_all extends SvelteComponentDev {
   constructor(options) {
     super(options);
-    init(this, options, instance$4, create_fragment$4, safe_not_equal, {});
+    init(this, options, instance$4, create_fragment$4, safe_not_equal, { reload: 0 });
     dispatch_dev("SvelteRegisterComponent", {
       component: this,
       tagName: "Find_all",
@@ -1344,11 +1400,19 @@ class Find_all extends SvelteComponentDev {
       id: create_fragment$4.name
     });
   }
+  get reload() {
+    return this.$$.ctx[0];
+  }
+  set reload(value) {
+    throw new Error("<Find_all>: Props cannot be set directly on the component instance unless compiling with 'accessors: true' or '<svelte:options accessors/>'");
+  }
 }
 const file$2 = "src/lib/:pages/home-page.svelte";
 function get_each_context(ctx, list, i) {
   const child_ctx = ctx.slice();
-  child_ctx[7] = list[i];
+  child_ctx[9] = list[i];
+  child_ctx[10] = list;
+  child_ctx[11] = i;
   return child_ctx;
 }
 function create_each_block(ctx) {
@@ -1364,7 +1428,7 @@ function create_each_block(ctx) {
   let span0;
   let t1_value = (
     /*todo*/
-    ctx[7].description + ""
+    ctx[9].description + ""
   );
   let t1;
   let label_for_value;
@@ -1381,7 +1445,11 @@ function create_each_block(ctx) {
       /*change_handler*/
       ctx[4](
         /*todo*/
-        ctx[7]
+        ctx[9],
+        /*each_value*/
+        ctx[10],
+        /*todo_index*/
+        ctx[11]
       )
     );
   }
@@ -1390,7 +1458,9 @@ function create_each_block(ctx) {
       /*mouseup_handler_1*/
       ctx[5](
         /*todo*/
-        ctx[7]
+        ctx[9],
+        /*reload*/
+        ctx[8]
       )
     );
   }
@@ -1413,34 +1483,34 @@ function create_each_block(ctx) {
       t4 = space();
       div6 = element("div");
       attr_dev(input, "id", input_id_value = /*todo*/
-      ctx[7].id);
+      ctx[9].id);
       attr_dev(input, "type", "checkbox");
       input.checked = input_checked_value = /*todo*/
-      ctx[7].checked;
+      ctx[9].checked;
       attr_dev(input, "class", "checkbox mt-2 rounded-full");
-      add_location(input, file$2, 33, 10, 896);
+      add_location(input, file$2, 38, 8, 991);
       attr_dev(div0, "class", "grid");
-      add_location(div0, file$2, 32, 8, 867);
+      add_location(div0, file$2, 37, 6, 964);
       attr_dev(span0, "class", "p-2");
-      add_location(span0, file$2, 47, 14, 1304);
+      add_location(span0, file$2, 56, 12, 1511);
       attr_dev(div1, "class", "btn btn-ghost rounded-3xl grid justify-start");
-      add_location(div1, file$2, 46, 12, 1231);
+      add_location(div1, file$2, 55, 10, 1440);
       attr_dev(div2, "class", "grid");
-      add_location(div2, file$2, 45, 10, 1200);
+      add_location(div2, file$2, 54, 8, 1411);
       attr_dev(label, "for", label_for_value = /*todo*/
-      ctx[7].id);
-      add_location(label, file$2, 44, 8, 1168);
+      ctx[9].id);
+      add_location(label, file$2, 53, 6, 1381);
       attr_dev(span1, "class", "p-2");
-      add_location(span1, file$2, 61, 12, 1742);
+      add_location(span1, file$2, 73, 10, 1995);
       attr_dev(div3, "class", "btn btn-error rounded-3xl grid justify-start");
-      add_location(div3, file$2, 54, 10, 1508);
+      add_location(div3, file$2, 63, 8, 1703);
       attr_dev(div4, "class", "grid");
-      add_location(div4, file$2, 52, 8, 1410);
+      add_location(div4, file$2, 61, 6, 1609);
       attr_dev(div5, "class", "grid gap-2");
       set_style(div5, "grid-template-columns", "auto 1fr auto");
-      add_location(div5, file$2, 31, 6, 789);
+      add_location(div5, file$2, 36, 4, 888);
       attr_dev(div6, "class", "pt-4");
-      add_location(div6, file$2, 65, 6, 1825);
+      add_location(div6, file$2, 77, 4, 2070);
     },
     m: function mount(target, anchor) {
       insert_dev(target, div5, anchor);
@@ -1469,22 +1539,22 @@ function create_each_block(ctx) {
     p: function update2(new_ctx, dirty) {
       ctx = new_ctx;
       if (dirty & /*todos*/
-      64 && input_id_value !== (input_id_value = /*todo*/
-      ctx[7].id)) {
+      128 && input_id_value !== (input_id_value = /*todo*/
+      ctx[9].id)) {
         attr_dev(input, "id", input_id_value);
       }
       if (dirty & /*todos*/
-      64 && input_checked_value !== (input_checked_value = /*todo*/
-      ctx[7].checked)) {
+      128 && input_checked_value !== (input_checked_value = /*todo*/
+      ctx[9].checked)) {
         prop_dev(input, "checked", input_checked_value);
       }
       if (dirty & /*todos*/
-      64 && t1_value !== (t1_value = /*todo*/
-      ctx[7].description + ""))
+      128 && t1_value !== (t1_value = /*todo*/
+      ctx[9].description + ""))
         set_data_dev(t1, t1_value);
       if (dirty & /*todos*/
-      64 && label_for_value !== (label_for_value = /*todo*/
-      ctx[7].id)) {
+      128 && label_for_value !== (label_for_value = /*todo*/
+      ctx[9].id)) {
         attr_dev(label, "for", label_for_value);
       }
     },
@@ -1502,7 +1572,7 @@ function create_each_block(ctx) {
     block,
     id: create_each_block.name,
     type: "each",
-    source: "(31:4) {#each todos.data as todo}",
+    source: "(36:2) {#each todos.data as todo}",
     ctx
   });
   return block;
@@ -1511,7 +1581,7 @@ function create_default_slot$1(ctx) {
   let each_1_anchor;
   let each_value = ensure_array_like_dev(
     /*todos*/
-    ctx[6].data
+    ctx[7].data
   );
   let each_blocks = [];
   for (let i = 0; i < each_value.length; i += 1) {
@@ -1533,11 +1603,11 @@ function create_default_slot$1(ctx) {
       insert_dev(target, each_1_anchor, anchor);
     },
     p: function update2(ctx2, dirty) {
-      if (dirty & /*todos, update, Date*/
-      66) {
+      if (dirty & /*todos, reload*/
+      384) {
         each_value = ensure_array_like_dev(
           /*todos*/
-          ctx2[6].data
+          ctx2[7].data
         );
         let i;
         for (i = 0; i < each_value.length; i += 1) {
@@ -1567,62 +1637,7 @@ function create_default_slot$1(ctx) {
     block,
     id: create_default_slot$1.name,
     type: "slot",
-    source: "(30:2) <FindAll let:using={{ todos }}>",
-    ctx
-  });
-  return block;
-}
-function create_key_block$1(ctx) {
-  let findall;
-  let current;
-  findall = new Find_all({
-    props: {
-      $$slots: {
-        default: [
-          create_default_slot$1,
-          ({ using: { todos } }) => ({ 6: todos }),
-          ({ using: todos_todos }) => todos_todos ? 64 : 0
-        ]
-      },
-      $$scope: { ctx }
-    },
-    $$inline: true
-  });
-  const block = {
-    c: function create() {
-      create_component(findall.$$.fragment);
-    },
-    m: function mount(target, anchor) {
-      mount_component(findall, target, anchor);
-      current = true;
-    },
-    p: function update2(ctx2, dirty) {
-      const findall_changes = {};
-      if (dirty & /*$$scope, todos, update*/
-      1090) {
-        findall_changes.$$scope = { dirty, ctx: ctx2 };
-      }
-      findall.$set(findall_changes);
-    },
-    i: function intro(local) {
-      if (current)
-        return;
-      transition_in(findall.$$.fragment, local);
-      current = true;
-    },
-    o: function outro(local) {
-      transition_out(findall.$$.fragment, local);
-      current = false;
-    },
-    d: function destroy(detaching) {
-      destroy_component(findall, detaching);
-    }
-  };
-  dispatch_dev("SvelteRegisterBlock", {
-    block,
-    id: create_key_block$1.name,
-    type: "key",
-    source: "(29:0) {#key update}",
+    source: "(35:0) <FindAll bind:this={find_all} let:using={{ todos, reload }}>",
     ctx
   });
   return block;
@@ -1636,15 +1651,22 @@ function create_fragment$3(ctx) {
   let t2;
   let div2;
   let t3;
-  let previous_key = (
-    /*update*/
-    ctx[1]
-  );
-  let key_block_anchor;
+  let findall;
   let current;
   let mounted;
   let dispose;
-  let key_block = create_key_block$1(ctx);
+  let findall_props = {
+    $$slots: {
+      default: [
+        create_default_slot$1,
+        ({ using: { todos, reload } }) => ({ 7: todos, 8: reload }),
+        ({ using: todos_todos_reload_reload }) => (todos_todos_reload_reload ? 128 : 0) | (todos_todos_reload_reload ? 256 : 0)
+      ]
+    },
+    $$scope: { ctx }
+  };
+  findall = new Find_all({ props: findall_props, $$inline: true });
+  ctx[6](findall);
   const block = {
     c: function create() {
       div1 = element("div");
@@ -1656,20 +1678,19 @@ function create_fragment$3(ctx) {
       t2 = space();
       div2 = element("div");
       t3 = space();
-      key_block.c();
-      key_block_anchor = empty();
+      create_component(findall.$$.fragment);
       attr_dev(input, "type", "text");
       attr_dev(input, "placeholder", "Type here");
       attr_dev(input, "class", "input input-bordered w-96 max-w-xs rounded-3xl");
-      add_location(input, file$2, 8, 2, 256);
-      add_location(span, file$2, 23, 4, 647);
+      add_location(input, file$2, 11, 2, 278);
+      add_location(span, file$2, 29, 4, 737);
       attr_dev(div0, "class", "w-20 btn btn-ghost rounded-3xl");
-      add_location(div0, file$2, 15, 2, 463);
+      add_location(div0, file$2, 18, 2, 485);
       attr_dev(div1, "class", "grid w-96 gap-2");
       set_style(div1, "grid-template-columns", "auto 1fr");
-      add_location(div1, file$2, 7, 0, 183);
+      add_location(div1, file$2, 10, 0, 205);
       attr_dev(div2, "class", "pt-4");
-      add_location(div2, file$2, 26, 0, 682);
+      add_location(div2, file$2, 32, 0, 772);
     },
     l: function claim(nodes) {
       throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1688,8 +1709,7 @@ function create_fragment$3(ctx) {
       insert_dev(target, t2, anchor);
       insert_dev(target, div2, anchor);
       insert_dev(target, t3, anchor);
-      key_block.m(target, anchor);
-      insert_dev(target, key_block_anchor, anchor);
+      mount_component(findall, target, anchor);
       current = true;
       if (!mounted) {
         dispose = [
@@ -1723,28 +1743,21 @@ function create_fragment$3(ctx) {
           ctx2[0]
         );
       }
-      if (dirty & /*update*/
-      2 && safe_not_equal(previous_key, previous_key = /*update*/
-      ctx2[1])) {
-        group_outros();
-        transition_out(key_block, 1, 1, noop);
-        check_outros();
-        key_block = create_key_block$1(ctx2);
-        key_block.c();
-        transition_in(key_block, 1);
-        key_block.m(key_block_anchor.parentNode, key_block_anchor);
-      } else {
-        key_block.p(ctx2, dirty);
+      const findall_changes = {};
+      if (dirty & /*$$scope, todos, reload*/
+      4480) {
+        findall_changes.$$scope = { dirty, ctx: ctx2 };
       }
+      findall.$set(findall_changes);
     },
     i: function intro(local) {
       if (current)
         return;
-      transition_in(key_block);
+      transition_in(findall.$$.fragment, local);
       current = true;
     },
     o: function outro(local) {
-      transition_out(key_block);
+      transition_out(findall.$$.fragment, local);
       current = false;
     },
     d: function destroy(detaching) {
@@ -1753,9 +1766,9 @@ function create_fragment$3(ctx) {
         detach_dev(t2);
         detach_dev(div2);
         detach_dev(t3);
-        detach_dev(key_block_anchor);
       }
-      key_block.d(detaching);
+      ctx[6](null);
+      destroy_component(findall, detaching);
       mounted = false;
       run_all(dispose);
     }
@@ -1773,7 +1786,7 @@ function instance$3($$self, $$props, $$invalidate) {
   let { $$slots: slots = {}, $$scope } = $$props;
   validate_slots("Home_page", slots, []);
   let description = "";
-  let update2 = Date.now();
+  let find_all2;
   const writable_props = [];
   Object.keys($$props).forEach((key) => {
     if (!~writable_props.indexOf(key) && key.slice(0, 2) !== "$$" && key !== "slot")
@@ -1784,41 +1797,58 @@ function instance$3($$self, $$props, $$invalidate) {
     $$invalidate(0, description);
   }
   const mouseup_handler = async function run2() {
-    await add({ description });
+    const [, error2] = await add({ description });
+    if (error2 || !find_all2) {
+      return;
+    }
     $$invalidate(0, description = "");
-    $$invalidate(1, update2 = Date.now());
+    find_all2.reload();
   };
-  const change_handler = function run2(todo) {
-    toggle({ id: todo.id });
+  const change_handler = async function toggle_todo(todo, each_value, todo_index) {
+    const [, error2] = await toggle({ id: todo.id });
+    if (error2) {
+      each_value[todo_index].checked = !todo.checked;
+      return;
+    }
   };
-  const mouseup_handler_1 = async function run2(todo) {
-    await remove({ id: todo.id });
-    $$invalidate(1, update2 = Date.now());
+  const mouseup_handler_1 = async function remove_todo(todo, reload) {
+    const [, error2] = await remove({ id: todo.id });
+    if (error2) {
+      return;
+    }
+    reload();
   };
+  function findall_binding($$value) {
+    binding_callbacks[$$value ? "unshift" : "push"](() => {
+      find_all2 = $$value;
+      $$invalidate(1, find_all2);
+    });
+  }
   $$self.$capture_state = () => ({
     FindAll: Find_all,
     add,
     remove,
     toggle,
     description,
-    update: update2
+    find_all: find_all2
   });
   $$self.$inject_state = ($$props2) => {
     if ("description" in $$props2)
       $$invalidate(0, description = $$props2.description);
-    if ("update" in $$props2)
-      $$invalidate(1, update2 = $$props2.update);
+    if ("find_all" in $$props2)
+      $$invalidate(1, find_all2 = $$props2.find_all);
   };
   if ($$props && "$$inject" in $$props) {
     $$self.$inject_state($$props.$$inject);
   }
   return [
     description,
-    update2,
+    find_all2,
     input_input_handler,
     mouseup_handler,
     change_handler,
-    mouseup_handler_1
+    mouseup_handler_1,
+    findall_binding
   ];
 }
 class Home_page extends SvelteComponentDev {

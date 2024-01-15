@@ -2,7 +2,10 @@
   import FindAll from ':components/find-all.svelte'
   import { add, remove, toggle } from ':scripts/remote_todos'
   let description = ''
-  let update = Date.now()
+  /**
+   * @type {FindAll}
+   */
+  let find_all
 </script>
 
 <div class="grid w-96 gap-2" style="grid-template-columns: auto 1fr;">
@@ -16,9 +19,12 @@
   <div
     class="w-20 btn btn-ghost rounded-3xl"
     on:mouseup={async function run() {
-      await add({ description })
+      const [,error] = await add({ description })
+      if(error || !find_all){
+        return
+      }
       description = ''
-      update = Date.now()
+      find_all.reload()
     }}
   >
     <span>+ Add</span>
@@ -26,44 +32,49 @@
 </div>
 <div class="pt-4" />
 
-{#key update}
-  <FindAll let:using={{ todos }}>
-    {#each todos.data as todo}
-      <div class="grid gap-2" style="grid-template-columns: auto 1fr auto">
+<FindAll bind:this={find_all} let:using={{ todos, reload }}>
+  {#each todos.data as todo}
+    <div class="grid gap-2" style="grid-template-columns: auto 1fr auto">
+      <div class="grid">
+        <input
+          id={todo.id}
+          type="checkbox"
+          checked={todo.checked}
+          class="checkbox mt-2 rounded-full"
+          on:change={async function toggle_todo() {
+            const [,error] = await toggle({ id: todo.id })
+            if(error){
+              todo.checked = !todo.checked
+              return
+            }
+          }}
+        />
+      </div>
+
+      <label for={todo.id}>
         <div class="grid">
-          <input
-            id={todo.id}
-            type="checkbox"
-            checked={todo.checked}
-            class="checkbox mt-2 rounded-full"
-            on:change={function run() {
-              toggle({ id: todo.id })
-            }}
-          />
+          <div class="btn btn-ghost rounded-3xl grid justify-start">
+            <span class="p-2">{todo.description}</span>
+          </div>
         </div>
+      </label>
 
-        <label for={todo.id}>
-          <div class="grid">
-            <div class="btn btn-ghost rounded-3xl grid justify-start">
-              <span class="p-2">{todo.description}</span>
-            </div>
-          </div>
-        </label>
-
-        <div class="grid">
-          <!-- svelte-ignore a11y-no-static-element-interactions -->
-          <div
-            class="btn btn-error rounded-3xl grid justify-start"
-            on:mouseup={async function run() {
-              await remove({ id: todo.id })
-              update = Date.now()
-            }}
-          >
-            <span class="p-2">Remove</span>
-          </div>
+      <div class="grid">
+        <!-- svelte-ignore a11y-no-static-element-interactions -->
+        <div
+          class="btn btn-error rounded-3xl grid justify-start"
+          on:mouseup={async function remove_todo() {
+            const [,error] = await remove({ id: todo.id })
+            if(error){
+              return
+            }
+            reload()
+          }}
+        >
+          <span class="p-2">Remove</span>
         </div>
       </div>
-      <div class="pt-4"></div>
-    {/each}
-  </FindAll>
-{/key}
+    </div>
+    <div class="pt-4"></div>
+  {/each}
+</FindAll>
