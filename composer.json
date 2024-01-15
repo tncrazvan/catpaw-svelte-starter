@@ -51,9 +51,11 @@
   "minimum-stability": "stable",
   "require": {
     "php": "^8.2",
-    "catpaw/core": "^1.0",
-    "amphp/amp": "^3.0",
-    "amphp/file": "^3.0",
+    "ext-mbstring": "*",
+    "ext-pcntl": "*",
+    "ext-openssl": "*",
+    "ext-zlib": "*",
+    "ext-yaml": "*",
     "catpaw/catpaw": "^2.0"
   },
   "autoload-dev": {
