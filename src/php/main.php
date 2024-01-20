@@ -21,7 +21,8 @@ function main() {
             www: env('www'),
             api: env('api'),
             apiPrefix: env('apiPrefix'),
-        )->try($error) or yield $error;
+        )->try($error)
+        or yield $error;
 
         $server
             ->router
