@@ -1,14 +1,10 @@
 <?php
-
 use App\Todo;
-
 use App\TodoService;
 use const CatPaw\Web\APPLICATION_JSON;
 use CatPaw\Web\Attributes\ProducesPage;
-
 use CatPaw\Web\Attributes\Summary;
 use CatPaw\Web\Page;
-
 use function CatPaw\Web\success;
 
 return

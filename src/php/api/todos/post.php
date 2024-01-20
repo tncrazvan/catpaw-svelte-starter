@@ -1,12 +1,10 @@
 <?php
 use App\Todo;
-
 use App\TodoService;
 use const CatPaw\Web\APPLICATION_JSON;
 use CatPaw\Web\Attributes\Body;
 use CatPaw\Web\Attributes\Consumes;
 use CatPaw\Web\Attributes\ProducesItem;
-
 use CatPaw\Web\Attributes\Summary;
 
 return

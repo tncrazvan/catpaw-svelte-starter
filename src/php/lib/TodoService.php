@@ -4,7 +4,6 @@ namespace App;
 use CatPaw\Core\Attributes\Entry;
 use CatPaw\Core\Attributes\Service;
 use function CatPaw\Core\uuid;
-
 use CatPaw\Web\Page;
 
 #[Service]

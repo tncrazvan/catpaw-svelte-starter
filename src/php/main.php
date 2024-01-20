@@ -1,13 +1,9 @@
 <?php
-
 use function CatPaw\Core\anyError;
 use function CatPaw\Core\env;
-
 use CatPaw\Core\Unsafe;
 use CatPaw\Web\Attributes\IgnoreOpenAPI;
 use CatPaw\Web\FileServer;
-
-
 use CatPaw\Web\Server;
 use CatPaw\Web\Services\OpenApiService;
 
