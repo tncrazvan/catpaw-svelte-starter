@@ -1,0 +1,42 @@
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "resolveJsonModule": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "strict": true,
+    "types": ["bun-types"],
+    "paths": {
+      ":pages/*": ["./src/svelte/lib/:pages/*"],
+      ":components/*": ["./src/svelte/lib/:components/*"],
+      ":stores/*": ["./src/svelte/lib/:stores/*"],
+      ":scripts/*": ["./src/svelte/lib/:scripts/*"],
+      ":assets/*": ["./:assets/*"],
+      ":constants": ["./src/svelte/lib/:constants.ts"],
+      ":types": ["./src/svelte/lib/:types.js"],
+      ":style": ["./src/svelte/lib/:style.scss"]
+    },
+    "importsNotUsedAsValues": "remove",
+    "isolatedModules": true,
+    "preserveValueImports": true,
+    "lib": ["esnext", "DOM", "DOM.Iterable"],
+    "moduleResolution": "node",
+    "module": "esnext",
+    "target": "esnext",
+    "ignoreDeprecations": "5.0"
+  },
+  "include": [
+    "./vite.config.js",
+    "./.eslintrc.cjs",
+    "./src/svelte/**/*.js",
+    "./src/svelte/**/*.ts",
+    "./src/svelte/**/*.svelte",
+    "./tests/svelte/**/*.js",
+    "./tests/svelte/**/*.ts",
+    "./tests/svelte/**/*.svelte"
+  ],
+  "exclude": ["./node_modules/**", "./public"]
+}

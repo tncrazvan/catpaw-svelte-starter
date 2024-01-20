@@ -7,17 +7,17 @@
   "scripts": {
     "load": "@composer dump-autoload -o",
     "prod:dock": ["./bin/image", "docker run -p 80:5757 -td app"],
-    "prod:start": "@php -dopcache.enable_cli=1 -dopcache.jit_buffer_size=100M ./bin/start --libraries='./src/lib' --entry='./src/main.php'",
-    "prod:build": "cd ./client && bun run build && cd .. && php -dphar.readonly=0 ./catpaw.phar --build --build-optimize",
+    "prod:start": "@php -dopcache.enable_cli=1 -dopcache.jit_buffer_size=100M ./bin/start --libraries='./src/php/lib' --entry='./src/php/main.php'",
+    "prod:build": "bun run build && php -dphar.readonly=0 ./catpaw.phar --build --build-optimize",
     "prod:test": "@php vendor/bin/phpunit tests",
     "prod:fix": "@php -dxdebug.mode=off ./vendor/bin/php-cs-fixer fix .",
-    "dev:start": "@php -dxdebug.mode=debug -dxdebug.start_with_request=yes ./bin/start --libraries='./src/lib' --entry='./src/main.php'",
-    "dev:watch": "@php ./bin/start --entry='./src/main.php' --libraries='./src/lib' --resources='./server' --info --watch --php='php -dxdebug.mode=debug -dxdebug.start_with_request=yes'",
-    "dev:build": "cd ./client && bun run build && cd .. && php -dphar.readonly=0 ./catpaw.phar --build",
+    "dev:start": "@php -dxdebug.mode=debug -dxdebug.start_with_request=yes ./bin/start --libraries='./src/php/lib' --entry='./src/php/main.php'",
+    "dev:watch": "@php ./bin/start --entry='./src/php/main.php' --libraries='./src/php/lib' --resources='./server' --info --watch --php='php -dxdebug.mode=debug -dxdebug.start_with_request=yes'",
+    "dev:build": "bun run build && php -dphar.readonly=0 ./catpaw.phar --build",
     "dev:test": "@php -dxdebug.mode=debug -dxdebug.start_with_request=yes vendor/bin/phpunit tests",
     "dev:fix": "@php -dxdebug.mode=off ./vendor/bin/php-cs-fixer fix .",
-    "dev:client:load": "cd ./client && bun i",
-    "dev:client:watch": "cd ./client && bun dev",
+    "dev:client:load": "bun i",
+    "dev:client:watch": "bun dev",
     "dev:precommit": "pre-commit install && pre-commit autoupdate",
     "dev:tips": "[ ! -f catpaw.phar ] && echo '' || php catpaw.phar --tips",
     "download:catpaw": "[ ! -f catpaw.phar ] && wget https://github.com/tncrazvan/catpaw/releases/latest/download/catpaw.phar || echo ''",
@@ -45,7 +45,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "App\\": "src/lib/"
+      "App\\": "src/php/lib/"
     }
   },
   "minimum-stability": "stable",
