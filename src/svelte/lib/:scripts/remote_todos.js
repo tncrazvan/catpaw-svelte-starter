@@ -4,7 +4,7 @@ import { http } from './http'
  * @returns {Promise<Unsafe<ResponsePage<Todo>>>}
  */
 export async function find_all() {
-  return http.get({ pathname: '/todos', using_cache:false })
+  return http.get({ pathname: '/todos', using_cache: false })
 }
 
 /**
@@ -12,7 +12,7 @@ export async function find_all() {
  * @returns {Promise<Unsafe<ResponseItem<Todo>>>}
  */
 export async function find_one({ id }) {
-  return http.get({ pathname: `/todos/${id}`, using_cache:false })
+  return http.get({ pathname: `/todos/${id}`, using_cache: false })
 }
 
 /**
