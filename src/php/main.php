@@ -2,7 +2,7 @@
 use function CatPaw\Core\anyError;
 use function CatPaw\Core\env;
 use CatPaw\Core\Unsafe;
-use CatPaw\Web\Attributes\IgnoreOpenAPI;
+use CatPaw\Web\Attributes\IgnoreOpenApi;
 use CatPaw\Web\FileServer;
 use CatPaw\Web\Server;
 use CatPaw\Web\Services\OpenApiService;
@@ -22,7 +22,7 @@ function main() {
 
         $server
             ->router
-            ->get('/api/openapi', #[IgnoreOpenAPI] fn (OpenApiService $oa) => $oa->getData())
+            ->get('/api/openapi', #[IgnoreOpenApi] fn (OpenApiService $oa) => $oa->getData())
             ->try($error)
             or yield $error;
 
