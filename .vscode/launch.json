@@ -10,8 +10,8 @@
             "request": "launch",
             "program": "${workspaceRoot}/bin/start",
             "args": [
-                "--libraries='./src/lib'",
-                "--entry='./src/main.php'"
+                "--libraries='./src/php/lib'",
+                "--entry='./src/php/main.php'"
             ],
             "cwd": "${workspaceRoot}",
             "runtimeArgs": [
