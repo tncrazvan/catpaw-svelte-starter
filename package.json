@@ -9,10 +9,10 @@
     "serve": "vite preview",
     "start": "bunx cap open android",
     "check": "svelte-check",
-    "format": "prettier --write ./src/**/*.{js,ts,html,svelte}",
+    "format": "prettier --write ./src/svelte/**/*.{js,ts,html,svelte}",
     "prettier": "prettier --write",
-    "lint": "eslint --no-error-on-unmatched-pattern \"./src/**/*.{js,ts,html,svelte}\"",
-    "lint:fix": "eslint --no-error-on-unmatched-pattern --fix \"./src/**/*.{js,ts,html,svelte}\"",
+    "lint": "eslint --no-error-on-unmatched-pattern \"./src/svelte/**/*.{js,ts,html,svelte}\"",
+    "lint:fix": "eslint --no-error-on-unmatched-pattern --fix \"./src/svelte/**/*.{js,ts,html,svelte}\"",
     "prebuild": "bun run lint:fix",
     "prelint": "bun run format"
   },

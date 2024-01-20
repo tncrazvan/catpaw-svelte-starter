@@ -11,8 +11,7 @@
         xsi:schemaLocation="https://getpsalm.org/schema/config"
 >
     <projectFiles>
-        <directory name="src" />
-        <directory name="server" />
-        <directory name="tests" />
+        <directory name="src/php" />
+        <directory name="tests/php" />
     </projectFiles>
 </psalm>
