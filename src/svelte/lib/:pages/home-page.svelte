@@ -1,6 +1,7 @@
 <script>
   import FindAll from ':components/find-all.svelte'
   import { add, remove, toggle } from ':scripts/remote_todos'
+  import { send_error, send_message } from ':scripts/send_message'
   let description = ''
   /**
    * @type {FindAll}
@@ -19,8 +20,9 @@
   <div
     class="w-20 btn btn-ghost rounded-3xl"
     on:mouseup={async function run() {
-      const [,error] = await add({ description })
-      if(error || !find_all){
+      const [, error] = await add({ description })
+      if (error) {
+        send_error({ text: error.message })
         return
       }
       description = ''
@@ -42,9 +44,10 @@
           checked={todo.checked}
           class="checkbox mt-2 rounded-full"
           on:change={async function toggle_todo() {
-            const [,error] = await toggle({ id: todo.id })
-            if(error){
+            const [, error] = await toggle({ id: todo.id })
+            if (error) {
               todo.checked = !todo.checked
+                send_error({ text: error.message })
               return
             }
           }}
@@ -64,8 +67,8 @@
         <div
           class="btn btn-error rounded-3xl grid justify-start"
           on:mouseup={async function remove_todo() {
-            const [,error] = await remove({ id: todo.id })
-            if(error){
+            const [, error] = await remove({ id: todo.id })
+            if (error) {
               return
             }
             reload()
@@ -75,6 +78,6 @@
         </div>
       </div>
     </div>
-    <div class="pt-4"></div>
+    <div class="pt-4" />
   {/each}
 </FindAll>

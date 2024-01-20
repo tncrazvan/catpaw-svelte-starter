@@ -1,4 +1,5 @@
 <script>
+  import Message from ':components/message.svelte'
   import HomePage from ':pages/home-page.svelte'
   import { Route, Router } from 'svelte-routing'
 </script>
@@ -10,3 +11,4 @@
     </Route>
   </Router>
 </div>
+<Message />

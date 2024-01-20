@@ -1,16 +1,10 @@
-import { error } from ':scripts/error'
-import { ok } from ':scripts/ok'
+import { http } from './http'
 
 /**
  * @returns {Promise<Unsafe<ResponsePage<Todo>>>}
  */
 export async function find_all() {
-  const response = await fetch('/api/todos')
-  if (response.status >= 300) {
-    return error(`Request failed with status ${response.status}`)
-  }
-
-  return ok(await response.json())
+  return http.get({ pathname: '/todos', using_cache:false })
 }
 
 /**
@@ -18,12 +12,7 @@ export async function find_all() {
  * @returns {Promise<Unsafe<ResponseItem<Todo>>>}
  */
 export async function find_one({ id }) {
-  const response = await fetch(`/api/todos/${id}`)
-  if (response.status >= 300) {
-    return error(`Request failed with status ${response.status}`)
-  }
-
-  return ok(await response.json())
+  return http.get({ pathname: `/todos/${id}`, using_cache:false })
 }
 
 /**
@@ -31,18 +20,13 @@ export async function find_one({ id }) {
  * @returns {Promise<Unsafe<ResponseItem<Todo>>>}
  */
 export async function add({ description }) {
-  const response = await fetch(`/api/todos`, {
-    method: 'POST',
+  return http.post({
+    pathname: `/todos`,
     body: description,
     headers: {
       'content-type': 'text/plain',
     },
   })
-  if (response.status >= 300) {
-    return error(`Request failed with status ${response.status}`)
-  }
-
-  return ok(await response.json())
 }
 
 /**
@@ -50,12 +34,7 @@ export async function add({ description }) {
  * @returns {Promise<Unsafe<boolean>>}
  */
 export async function remove({ id }) {
-  const response = await fetch(`/api/todos/${id}`, { method: 'DELETE' })
-  if (response.status >= 300) {
-    return error(`Request failed with status ${response.status}`)
-  }
-
-  return ok(true)
+  return http.delete({ pathname: `/todos/${id}` })
 }
 
 /**
@@ -63,10 +42,5 @@ export async function remove({ id }) {
  * @returns {Promise<Unsafe<ResponseItem<Todo>>>}
  */
 export async function toggle({ id }) {
-  const response = await fetch(`/api/todos/${id}/toggle`, { method: 'PUT' })
-  if (response.status >= 300) {
-    return error(`Request failed with status ${response.status}`)
-  }
-
-  return ok(await response.json())
+  return http.put({ pathname: `/todos/${id}/toggle` })
 }

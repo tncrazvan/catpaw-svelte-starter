@@ -2,9 +2,9 @@
   import { find_all } from ':scripts/remote_todos'
   let promise = find_all()
 
-  export async function reload(){
+  export async function reload() {
     const result = await find_all()
-    promise = new Promise(function run(send){
+    promise = new Promise(function run(send) {
       send(result)
     })
   }
