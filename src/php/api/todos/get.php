@@ -10,4 +10,4 @@ use function CatPaw\Web\success;
 return
 #[Summary('Find a page of todos from the list.')]
 #[ProducesPage(Todo::class, APPLICATION_JSON, new Todo)]
-fn (TodoService $todos, Page $page) => success($todos->findAll($page))->page($page);
+fn (TodoService $todos, Page $page) => success($todos->findAll($page))->as(APPLICATION_JSON)->page($page);
