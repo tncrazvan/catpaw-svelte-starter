@@ -3,7 +3,7 @@ use function CatPaw\Core\anyError;
 use function CatPaw\Core\env;
 use CatPaw\Core\Unsafe;
 
-use const CatPaw\Web\APPLICATION_JSON;
+use const CatPaw\Web\__APPLICATION_JSON;
 use CatPaw\Web\Attributes\IgnoreOpenApi;
 use CatPaw\Web\FileServer;
 use CatPaw\Web\Server;
@@ -26,7 +26,7 @@ function main() {
 
         $server
             ->router
-            ->get('/api/openapi', #[IgnoreOpenApi] fn (OpenApiService $oa) => success($oa->getData())->as(APPLICATION_JSON))
+            ->get('/api/openapi', #[IgnoreOpenApi] fn (OpenApiService $oa) => success($oa->getData())->as(__APPLICATION_JSON))
             ->try($error)
             or yield $error;
 
